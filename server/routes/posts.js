@@ -1,8 +1,8 @@
 import express from 'express';
-import { getPosts } from '../handlers/posts.js';
+import { getPosts, createPost } from '../handlers/posts.js';
 
 const router = express.Router();
 
 router.get('/', getPosts);
-
+router.post('/', createPost);
 export default router;
