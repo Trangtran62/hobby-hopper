@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const apiCalls = createSlice({
+const postsSlice = createSlice({
     name: 'apiCalls',
     initialState: [],
     reducers: {
-        fecthAll(posts, action) {
-            
+        postAdded(state, action) {
+            return state;
         },
-        create(posts, action) {
-
+        postCreated(state, action) {
+            return state;
         }
     }
 });
 
-export const { fetchAll, create } = apiCalls.actions;
-export default apiCalls.reducer;
+export const { postAdded, postCreated } = postsSlice.actions;
+export default postsSlice.reducer;
