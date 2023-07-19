@@ -8,7 +8,7 @@ import * as api from '../api';
 
 const postsAdapter = createEntityAdapter({selectId: (instance) => instance._id});
 
-const initialState = postsAdapter.getInitialState({status: 'idle'});
+const initialState = postsAdapter.getInitialState();
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await api.fetchPosts();
@@ -32,7 +32,6 @@ const postsSlice = createSlice({
         builder
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 postsAdapter.setAll(state, action.payload);
-                state.status = 'idle';
             })
             .addCase(createPost.fulfilled, postsAdapter.addOne)
     }
