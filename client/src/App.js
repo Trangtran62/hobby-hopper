@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import { Container, AppBar, Typography, Grow, Grid, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import { postsGetAll } from './actions/posts';
@@ -19,7 +19,7 @@ const App = () => {
         <Container maxWidth='lg'> 
             <AppBar className={classes.appBar} position='static' color='inherit'>
                 <Typography variant='h3' align='left'>Hobby Hopper</Typography>
-                <Typography variant='h6' align='right'>Sign in</Typography>    
+                <Typography variant='h6' align='right'><Button size='small'>Sign in</Button></Typography>    
             </AppBar>
             <Grow in>
                 <Container>
