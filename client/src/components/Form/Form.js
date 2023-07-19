@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Paper, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../reducers/posts';
 
 const Form = () => {
     const [postData, setPostData] = useState({
@@ -12,11 +14,12 @@ const Form = () => {
         category: '',
         selectedFile: ''
     });
-
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(createPost(postData));
     };
     
     const clear = () => {
@@ -25,7 +28,7 @@ const Form = () => {
 
     return (
         <Paper className={classes.paper}>
-            <form autoComplete='off' noValidate className={classes.form} onSumbit={handleSubmit}>
+            <form autoComplete='off' noValidate className={classes.form} onSubmit={handleSubmit}>
             <Typography variant='h6'>Create a Post</Typography>
             <TextField 
                 name='creator' 

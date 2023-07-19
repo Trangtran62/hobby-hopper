@@ -6,13 +6,18 @@ import {
 
 import * as api from '../api';
 
-const postsAdapter = createEntityAdapter();
+const postsAdapter = createEntityAdapter({selectId: (instance) => instance._id});
 
 const initialState = postsAdapter.getInitialState({status: 'idle'});
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await api.fetchPosts();
-    return response;
+    return response.data;
+});
+
+export const createPost = createAsyncThunk('posts/createPost', async newPost => {
+    const response = await api.createPost(newPost);
+    return response.data;
 });
 
 const postsSlice = createSlice({
@@ -25,13 +30,11 @@ const postsSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(fetchPosts.pending, (state, action) => {
-                state.status = 'loading';
-            })
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 postsAdapter.setAll(state, action.payload);
                 state.status = 'idle';
             })
+            .addCase(createPost.fulfilled, postsAdapter.addOne)
     }
 });
 
