@@ -21,10 +21,11 @@ const Post = ({ post }) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `${tag} `)}</Typography>
+                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag } `)}</Typography>
             </div>
             <CardContent>
-                <Typography className={classes.title} variant='h5' gutterBottom>{post.message}</Typography>
+                <Typography className={classes.title} variant='h5' color='secondary' gutterBottom>{post.title}</Typography>
+                <Typography className={classes.details} variant='body' gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
                 <Button size='small' color='primary' onClick={() => {}}>

@@ -19,7 +19,7 @@ const Form = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createPost(postData));
+        dispatch(createPost({ ...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1) }));
     };
     
     const clear = () => {
