@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,9 +13,17 @@ import { postCurrentId } from '../../../reducers/ids';
 const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [show, setShow] = useState(true);
+
+    const handleDelete = () => {
+        dispatch(deletePost(post._id));
+        setShow(false);
+    }
 
     return (
-        <Card className={classes.card}>
+        <div>
+            { show ? (
+            <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.creator}</Typography>
@@ -39,12 +47,15 @@ const Post = ({ post }) => {
                     Like
                     {post.likeCount}
                 </Button>
-                <Button size='small' color='primary' onClick={() => dispatch(deletePost(post._id))}>
+                <Button size='small' color='primary' onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
                     Delete
                 </Button>
             </CardActions>
-        </Card>
+            </Card>
+            ) : null
+            }
+        </div>
     );
 };
 

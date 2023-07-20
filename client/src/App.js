@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 const App = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const currentId = useSelector((state) => state.posts.currentId);
+    const currentId = useSelector((state) => state.ids.currentId);
+    const postsLength = useSelector((state) => Object.keys(state.posts.entities).length);
+    console.log(postsLength);
 
     useEffect(() => {
         dispatch(fetchPosts());
-    }, [currentId, dispatch]);
+    }, [currentId, dispatch, postsLength]);
 
     return (
         <Container maxWidth='lg'> 
