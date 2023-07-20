@@ -4,15 +4,16 @@ import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
 import useStyles from './styles';
 import { fetchPosts } from './reducers/posts';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const currentId = useSelector((state) => state.posts.currentId);
 
     useEffect(() => {
         dispatch(fetchPosts());
-    }, [dispatch]);
+    }, [currentId, dispatch]);
 
     return (
         <Container maxWidth='lg'> 

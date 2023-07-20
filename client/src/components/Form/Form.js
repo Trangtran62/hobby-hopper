@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../reducers/posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, updatePost } from '../../reducers/posts';
+import { clearCurrentId } from '../../reducers/ids';
 
 const Form = () => {
-    const [postData, setPostData] = useState({
+    const initialData = {
         creator: '',
         title: '',
         message: '',
         tags: '',
         category: '',
         selectedFile: ''
-    });
+    };
+
+    const [postData, setPostData] = useState({ initialData });
+    const currentId = useSelector((state) => state.ids.currentId);
+    console.log(currentId);
+    const post =  useSelector((state) => currentId ? state.posts.entities[currentId] : null);
+    console.log(post);
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (post) {
+            setPostData(post);
+        };
+    }, [post]);
+
+    const clear = () => {
+        dispatch(clearCurrentId);
+        setPostData(initialData);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createPost({ ...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1) }));
-    };
-    
-    const clear = () => {
 
+        if (currentId) {
+            dispatch(updatePost(currentId, postData));
+        } else {
+            dispatch(createPost({ ...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1) })); 
+        };
+
+        clear();
     };
 
     return (
         <Paper className={classes.paper}>
             <form autoComplete='off' noValidate className={classes.form} onSubmit={handleSubmit}>
-            <Typography variant='h6'>Create a Post</Typography>
+            <Typography variant='h6'>{currentId ? 'Edit' : 'Create' } a Post</Typography>
             <TextField 
                 name='creator' 
                 variant='outlined' 

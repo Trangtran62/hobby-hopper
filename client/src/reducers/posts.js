@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import * as api from '../api';
+// import { createTheme } from '@material-ui/core';
 
 const postsAdapter = createEntityAdapter({selectId: (instance) => instance._id});
 
@@ -20,13 +21,20 @@ export const createPost = createAsyncThunk('posts/createPost', async newPost => 
     return response.data;
 });
 
+export const updatePost = createAsyncThunk('posts/updatePost', async (id, updatedPost) => {
+    const response = await api.updatePost(id, updatedPost);
+    return response.data;
+});
+
+export const deletePost = createAsyncThunk('posts/deletePost', async (id) => {
+    await api.deletePost(id);
+})
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
-        postCreated(state, action) {
-            return state;
-        }
+
     },
     extraReducers: builder => {
         builder
@@ -34,8 +42,12 @@ const postsSlice = createSlice({
                 postsAdapter.setAll(state, action.payload);
             })
             .addCase(createPost.fulfilled, postsAdapter.addOne)
+            .addCase(updatePost.fulfilled, (state, action) => {
+                const { _id, ...changes } = action.payload;
+                postsAdapter.updateOne(state, { _id, changes });
+            })
+            .addCase(deletePost.fulfilled, postsAdapter.removeOne)
     }
 });
 
-export const { postCreated } = postsSlice.actions;
 export default postsSlice.reducer;
