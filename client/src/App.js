@@ -11,7 +11,6 @@ const App = () => {
     const dispatch = useDispatch();
     const currentId = useSelector((state) => state.ids.currentId);
     const postsLength = useSelector((state) => Object.keys(state.posts.entities).length);
-    console.log(postsLength);
 
     useEffect(() => {
         dispatch(fetchPosts());

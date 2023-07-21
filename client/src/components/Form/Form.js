@@ -27,6 +27,7 @@ const Form = () => {
     useEffect(() => {
         if (post) {
             setPostData(post);
+            console.log(post);
         };
     }, [post]);
 
@@ -39,6 +40,7 @@ const Form = () => {
         event.preventDefault();
 
         if (currentId) {
+            console.log(postData);
             dispatch(updatePost(currentId, postData));
         } else {
             dispatch(createPost({ ...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1) })); 
@@ -105,6 +107,7 @@ const Form = () => {
                 <FileBase
                     type='file'
                     multiple={false}
+                    value={postData.selectedFile}
                     onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 }) }
                 />
             </div>
