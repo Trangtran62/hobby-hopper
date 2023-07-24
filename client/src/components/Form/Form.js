@@ -95,7 +95,7 @@ const Form = () => {
                 variant='outlined' 
                 label='Creator'
                 fullWidth
-                value={postData.creator}
+                value={postData.creator ? postData.creator : ' '}
                 onChange={(event) => setPostData({ ...postData, creator: event.target.value })}
             />
             <TextField 
@@ -108,7 +108,7 @@ const Form = () => {
                 variant='outlined' 
                 label='Title' 
                 fullWidth
-                value={postData.title}
+                value={postData.title ? postData.title : ' '}
                 onChange={(event) => setPostData({ ...postData, title: event.target.value })}
             />
             <TextField 
@@ -122,7 +122,7 @@ const Form = () => {
                 variant='outlined' 
                 label='Message' 
                 fullWidth
-                value={postData.message}
+                value={postData.message ? postData.message : ' '}
                 minRows={4}
                 onChange={(event) => setPostData({ ...postData, message: event.target.value })}
             />
@@ -135,7 +135,7 @@ const Form = () => {
                 variant='outlined' 
                 label='Tags' 
                 fullWidth
-                value={postData.tags}
+                value={postData.tags ? postData.tags : ' '}
                 onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(/(\s+)/).filter(item => item.trim().length > 1)})}
             />
             <FormControl required variant='filled' fullWidth margin='dense'>
