@@ -138,7 +138,7 @@ const Form = () => {
                 value={postData.tags}
                 onChange={(event) => setPostData({ ...postData, tags: event.target.value})}
             />
-            <FormControl variant='filled' fullWidth margin='dense' color='secondary'>
+            <FormControl required variant='filled' fullWidth margin='dense' color='secondary'>
                 <InputLabel className={ classes.label } InputLabelProps={{ shrink: true }}>Category</InputLabel>
                 <Select
                     disableUnderline
