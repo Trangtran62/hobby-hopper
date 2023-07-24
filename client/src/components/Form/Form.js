@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../reducers/posts';
 import { clearCurrentId } from '../../reducers/ids';
 
+import { useMinimalSelectStyles } from '@mui-treasury/styles/select/minimal';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 const Form = () => {
     const initialData = {
         creator: '',
@@ -15,11 +18,12 @@ const Form = () => {
         category: '',
         selectedFile: ''
     };
+    const categoryList = ['Arts&Crafts', 'Fitness', 'Gardening', 'Boardgame', 'Electronics', 'Cooking', 'Others'];
 
     const [postData, setPostData] = useState({ initialData });
     const currentId = useSelector((state) => state.ids.currentId);
     console.log(currentId);
-    const post =  useSelector((state) => currentId ? state.posts.entities[currentId] : null);
+    const post = useSelector((state) => currentId ? state.posts.entities[currentId] : null);
     console.log(post);
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -32,36 +36,74 @@ const Form = () => {
     }, [post]);
 
     const clear = () => {
-        dispatch(clearCurrentId);
+        dispatch(clearCurrentId());
         setPostData(initialData);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (currentId) {
-            console.log(postData);
+        if (currentId !== null) {
             dispatch(updatePost(currentId, postData));
+            console.log(postData);
         } else {
-            dispatch(createPost({ ...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1) })); 
+            console.log(postData);
+            dispatch(createPost({...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1)})); 
         };
 
         clear();
+        console.log(postData);
     };
+
+    // Drop down menu styling for category
+    const minimalSelectClasses = useMinimalSelectStyles();
+
+    const iconComponent = (props) => {
+        return (
+        <ExpandMoreIcon className={props.className + " " + minimalSelectClasses.icon}/>
+        )};
+
+    // moves the menu below the select input
+    const menuProps = {
+        classes: {
+        paper: minimalSelectClasses.paper,
+        list: minimalSelectClasses.list
+        },
+        anchorOrigin: {
+        vertical: "bottom",
+            horizontal: "left"
+        },
+        transformOrigin: {
+        vertical: "top",
+            horizontal: "left"
+        },
+        getContentAnchorEl: null
+    };
+
 
     return (
         <Paper className={classes.paper}>
-            <form autoComplete='off' noValidate className={classes.form} onSubmit={handleSubmit}>
+            <form autoComplete='off' className={classes.form} onSubmit={handleSubmit}>
             <Typography variant='h6'>{currentId ? 'Edit' : 'Create' } a Post</Typography>
             <TextField 
+                required
+                margin='dense'
+                color='secondary'
+                InputLabelProps={{ shrink: true, className: classes.label }}
+                InputProps={{ classes: { notchedOutline: classes.notchedOutline } }}
                 name='creator' 
                 variant='outlined' 
-                label='Creator' 
+                label='Creator'
                 fullWidth
                 value={postData.creator}
                 onChange={(event) => setPostData({ ...postData, creator: event.target.value })}
             />
             <TextField 
+                required
+                margin='dense'
+                color='secondary'
+                InputLabelProps={{ shrink: true, className: classes.label }}
+                InputProps={{ classes: { notchedOutline: classes.notchedOutline }}}
                 name='title' 
                 variant='outlined' 
                 label='Title' 
@@ -70,52 +112,64 @@ const Form = () => {
                 onChange={(event) => setPostData({ ...postData, title: event.target.value })}
             />
             <TextField 
+                required
+                margin='dense'
+                color='secondary'
+                InputLabelProps={{ shrink: true, className: classes.label }}
+                InputProps={{ classes: { notchedOutline: classes.notchedOutline }}}
+                multiline
                 name='message' 
                 variant='outlined' 
                 label='Message' 
                 fullWidth
                 value={postData.message}
+                minRows={4}
                 onChange={(event) => setPostData({ ...postData, message: event.target.value })}
             />
             <TextField 
+                margin='dense'
+                color='secondary'
+                InputLabelProps={{ shrink: true, className: classes.label }}
+                InputProps={{ classes: { notchedOutline: classes.notchedOutline }}}
                 name='tags' 
                 variant='outlined' 
                 label='Tags' 
                 fullWidth
                 value={postData.tags}
-                onChange={(event) => setPostData({ ...postData, tags: event.target.value })}
+                onChange={(event) => setPostData({ ...postData, tags: event.target.value})}
             />
-            <FormControl variant='outlined' fullWidth>
-                <InputLabel>Category</InputLabel>
+            <FormControl variant='filled' fullWidth margin='dense' color='secondary'>
+                <InputLabel className={ classes.label } InputLabelProps={{ shrink: true }}>Category</InputLabel>
                 <Select
+                    disableUnderline
+                    MenuProps={menuProps}
+                    IconComponent={iconComponent}
                     name='category'
-                    variant='outlined'
                     label='Category'
                     value={postData.category}
+                    defaultValue='Others'
                     onChange={(event) => setPostData({ ...postData, category: event.target.value})}
                 >
-                    <MenuItem value={'Arts&Crafts'}>Arts&Crafts</MenuItem>
-                    <MenuItem value={'Fitness'}>Fitness</MenuItem>
-                    <MenuItem value={'Gardening'}>Gardening</MenuItem>
-                    <MenuItem value={'Boardgame'}>Boardgame</MenuItem>
-                    <MenuItem value={'Electronics'}>Electronics</MenuItem>
-                    <MenuItem value={'Cooking'}>Cooking</MenuItem>
-                    <MenuItem value={'Others'}>Others</MenuItem>
+                    {categoryList.map((item) => (
+                        <MenuItem value={item}>{ item }</MenuItem>
+                    ))}
                 </Select>
             </FormControl>
             <div className={classes.fileInput}>
                 <FileBase
+                    required
                     type='file'
                     multiple={false}
                     value={postData.selectedFile}
                     onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 }) }
                 />
             </div>
-            <Button className={classes.buttonSubmit} variant='contained' color='primary' size='large' type='submit' fullWidth>Submit</Button>
-            <Button className={classes.buttonSubmit} variant='contained' color='secondary' size='small' onClick={clear} fullWidth>Clear</Button>
+            <Button className={classes.buttonSubmit} variant='outlined' color='primary' size='small' type='submit' fullWidth>Submit</Button>
+            <Button className={classes.buttonSubmit} variant='outlined' color='secondary' size='small' onClick={clear} fullWidth>Clear</Button>
             </form>
         </Paper>
     );
 };
 
 export default Form;
+

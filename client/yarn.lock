@@ -1661,6 +1661,22 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@mui-treasury/styles@^1.13.1":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@mui-treasury/styles/-/styles-1.13.1.tgz#96c86f362056eaeb528740bf4cf128d3cd5c56b7"
+  integrity sha512-vfAx8RWFnEVBSTK2KbgU6n4EwYXzWSU3VRsUUbRkuPXgdc8PO6O9/HAht8s/qMOCCa+UZ/s+dfjvN9iXPmW5SA==
+  dependencies:
+    "@mui-treasury/utils" "^0.4.1"
+    color "^3.1.2"
+
+"@mui-treasury/utils@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@mui-treasury/utils/-/utils-0.4.1.tgz#075645cec98b2e976766e505d9ac8b52778438b3"
+  integrity sha512-XcJOUrQodx2VCouk6uvYw+MChVGXPy1abe7PxqpxIGEr6s1QwV8HhgA4q/+eq0//IQ6oDXGlym4PSDO3Yh/lHA==
+  dependencies:
+    lodash.get "^4.4.2"
+    lodash.isequal "^4.5.0"
+
 "@nicolo-ribaudo/semver-v6@^6.3.3":
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/semver-v6/-/semver-v6-6.3.3.tgz#ea6d23ade78a325f7a52750aab1526b02b628c29"
@@ -3643,7 +3659,7 @@ color-string@^1.6.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.0.0, color@^3.2.1:
+color@^3.0.0, color@^3.1.2, color@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
   integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
@@ -7785,6 +7801,16 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==
 
 lodash.memoize@^4.1.2:
   version "4.1.2"

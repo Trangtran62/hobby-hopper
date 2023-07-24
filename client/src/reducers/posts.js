@@ -43,6 +43,7 @@ const postsSlice = createSlice({
             })
             .addCase(createPost.fulfilled, postsAdapter.addOne)
             .addCase(updatePost.fulfilled, (state, action) => {
+                console.log(action); // The action.payload is not the updated post ?? 
                 const { _id, ...changes } = action.payload;
                 postsAdapter.updateOne(state, { _id, changes });
             })

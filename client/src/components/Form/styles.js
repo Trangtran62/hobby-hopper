@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
     root: {
@@ -21,4 +22,11 @@ export default makeStyles((theme) => ({
     buttonSubmit: {
         marginBottom: 10,
     },
+    label: {
+        color: deepPurple[300],
+    },
+    notchedOutline: {
+        borderWidth: "1px",
+        borderColor: deepPurple[300],
+    }
 }));

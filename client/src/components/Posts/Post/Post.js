@@ -35,7 +35,7 @@ const Post = ({ post }) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag } `)}</Typography>
+                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => tag )}</Typography>
             </div>
             <CardContent>
                 <Typography className={classes.title} variant='h5' color='secondary' gutterBottom>{post.title}</Typography>
