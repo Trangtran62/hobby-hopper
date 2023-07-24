@@ -31,7 +31,7 @@ const Post = ({ post }) => {
             </div>
             <div className={classes.overlay2}>
                 <Button style={{ color: 'white'}} size='small' onClick={() => dispatch(postCurrentId(post._id))}>
-                    <MoreHorizonIcon fontSize='default' />
+                    <MoreHorizonIcon fontSize='medium' />
                 </Button>
             </div>
             <div className={classes.details}>
@@ -39,7 +39,7 @@ const Post = ({ post }) => {
             </div>
             <CardContent>
                 <Typography className={classes.title} variant='h5' color='secondary' gutterBottom>{post.title}</Typography>
-                <Typography className={classes.details} variant='body' gutterBottom>{post.message}</Typography>
+                <Typography className={classes.details} variant='body1' gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
                 <Button size='small' color='primary' onClick={() => {}}>

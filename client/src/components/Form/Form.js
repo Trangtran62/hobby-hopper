@@ -136,22 +136,21 @@ const Form = () => {
                 label='Tags' 
                 fullWidth
                 value={postData.tags}
-                onChange={(event) => setPostData({ ...postData, tags: event.target.value})}
+                onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(/(\s+)/).filter(item => item.trim().length > 1)})}
             />
-            <FormControl required variant='filled' fullWidth margin='dense' color='secondary'>
-                <InputLabel className={ classes.label } InputLabelProps={{ shrink: true }}>Category</InputLabel>
+            <FormControl required variant='filled' fullWidth margin='dense'>
+                <InputLabel className={ classes.label }>Category</InputLabel>
                 <Select
                     disableUnderline
                     MenuProps={menuProps}
                     IconComponent={iconComponent}
                     name='category'
                     label='Category'
-                    value={postData.category}
-                    defaultValue='Others'
+                    value={postData.category ? postData.category : 'Others'}
                     onChange={(event) => setPostData({ ...postData, category: event.target.value})}
                 >
                     {categoryList.map((item) => (
-                        <MenuItem value={item}>{ item }</MenuItem>
+                        <MenuItem key={categoryList.indexOf(item)} value={item}>{ item }</MenuItem>
                     ))}
                 </Select>
             </FormControl>
