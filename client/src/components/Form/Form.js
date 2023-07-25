@@ -22,8 +22,9 @@ const Form = () => {
 
     const [postData, setPostData] = useState({ initialData });
     const currentId = useSelector((state) => state.ids.currentId);
-    console.log(currentId);
+    console.log(`Current ID: ${currentId}`);
     const post = useSelector((state) => currentId ? state.posts.entities[currentId] : null);
+    console.log(`Current form field values - post data from state:`);
     console.log(post);
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -31,7 +32,6 @@ const Form = () => {
     useEffect(() => {
         if (post) {
             setPostData(post);
-            console.log(post);
         };
     }, [post]);
 
@@ -43,16 +43,18 @@ const Form = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (currentId !== null) {
+        if (currentId !== undefined) {
+            console.log(`Updated post data:`);
+            console.log(postData);
             dispatch(updatePost(currentId, postData));
-            console.log(postData);
         } else {
-            console.log(postData);
             dispatch(createPost({...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1)})); 
         };
 
+        console.log(`Post data from sate`);
+        console.log(post);
+
         clear();
-        console.log(postData);
     };
 
     // Drop down menu styling for category

@@ -15,7 +15,7 @@ const idsSlice = createSlice({
             state.currentId = action.payload;
         },
         clearCurrentId(state, action) {
-            state.currentId = null;
+            state.currentId = undefined;
         }
     }});
 
