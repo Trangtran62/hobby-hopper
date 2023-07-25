@@ -6,13 +6,13 @@ import Input from './Input';
 
 const Auth = () => {
     const classes = useStyles();
-    const isSignup = true;
+    const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = () => {};
     const handleChange = () => {};
     const handleShowPassword = () => {};
-    const switchMode = () => {};
+    const switchMode = () => setIsSignup(!isSignup);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -68,9 +68,9 @@ const Auth = () => {
                     </Button>
                     <Grid container justifyContent="center">
                         <Grid item>
-                            <p onClick={switchMode}>
+                            <Button className={classes.button} variant="text" onClick={switchMode}>
                                 {isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign up"}
-                            </p>
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>

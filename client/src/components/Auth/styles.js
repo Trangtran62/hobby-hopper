@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     },
     form: {
         marginTop: theme.spacing(3),
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -28,4 +28,11 @@ export default makeStyles((theme) => ({
     googleButton: {
         marginBottom: theme.spacing(2),
     },
+    button: {
+        textTransform: 'none',
+        '&:hover': {
+            backgroundColor: deepPurple[100],
+            boxShadow: 'none',
+        }
+    }
 }));

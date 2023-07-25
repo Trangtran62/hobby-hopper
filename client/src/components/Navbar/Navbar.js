@@ -20,7 +20,7 @@ const Navbar = () => {
                         <Button variant="outlined" className={classes.logout} color="secondary" onClick={() => {}}>Log Out</Button>
                     </div>
                 ) : (
-                    <Button component={Link} to="/auth" variant="outlined" size="small">Sign In</Button>
+                    <Button component={Link} to="/auth" variant="outlined" size="small" color="primary">Sign In</Button>
                 )}
             </Toolbar>    
         </AppBar>
