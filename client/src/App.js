@@ -1,40 +1,22 @@
-import React, { useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid, Button } from '@material-ui/core';
-import Posts from './components/Posts/Posts';
-import Form from './components/Form/Form';
-import useStyles from './styles';
-import { fetchPosts } from './reducers/posts';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Container } from '@material-ui/core';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Navbar from './components/Navbar/Navbar';
+import Home from './components/Home/Home';
+import Auth from './components/Auth/Auth';
 
 const App = () => {
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    const currentId = useSelector((state) => state.ids.currentId);
-    const postsLength = useSelector((state) => Object.keys(state.posts.entities).length);
-
-    useEffect(() => {
-        dispatch(fetchPosts());
-    }, [currentId, dispatch, postsLength]);
-
     return (
-        <Container maxWidth='lg'> 
-            <AppBar className={classes.appBar} position='static' color='inherit'>
-                <Typography variant='h3' align='left'>Hobby Hopper</Typography>
-                <Typography variant='h6' align='right'><Button size='small'>Sign in</Button></Typography>    
-            </AppBar>
-            <Grow in>
-                <Container>
-                    <Grid className={classes.mainContainer} container justifyContent='space-between' alignItems='stretch' spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Posts />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>
-        </Container>
+        <BrowserRouter>
+            <Container maxWidth='lg'> 
+                <Navbar />
+                <Routes>
+                    <Route path="/" exact Component={Home} />
+                    <Route path="/auth" exact Component={Auth} />
+                </Routes>
+            </Container>
+        </BrowserRouter>
     );
 }
 
