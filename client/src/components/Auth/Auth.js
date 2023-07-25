@@ -12,6 +12,7 @@ const Auth = () => {
     const handleSubmit = () => {};
     const handleChange = () => {};
     const handleShowPassword = () => {};
+    const switchMode = () => {};
 
     return (
         <Container component="main" maxWidth="xs">
@@ -65,6 +66,13 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant="outlined" color="primary" className={classes.submit} size="small">
                         {isSignup ? "Sign Up" : "Sign In"}
                     </Button>
+                    <Grid container justifyContent="center">
+                        <Grid item>
+                            <p onClick={switchMode}>
+                                {isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign up"}
+                            </p>
+                        </Grid>
+                    </Grid>
                 </form>
             </Paper>
         </Container>
