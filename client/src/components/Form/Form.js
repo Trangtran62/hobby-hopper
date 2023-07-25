@@ -44,15 +44,10 @@ const Form = () => {
         event.preventDefault();
 
         if (currentId !== undefined) {
-            console.log(`Updated post data:`);
-            console.log(postData);
-            dispatch(updatePost(currentId, postData));
+            dispatch(updatePost({id: currentId, updatedPost: postData}));
         } else {
-            dispatch(createPost({...postData, tags: postData.tags.split(/(\s+)/).filter(item => item.trim().length > 1)})); 
+            dispatch(createPost(postData)); 
         };
-
-        console.log(`Post data from sate`);
-        console.log(post);
 
         clear();
     };
@@ -136,9 +131,10 @@ const Form = () => {
                 name='tags' 
                 variant='outlined' 
                 label='Tags' 
+                helperText='Comma separated, no white space'
                 fullWidth
                 value={postData.tags ? postData.tags : ' '}
-                onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(/(\s+)/).filter(item => item.trim().length > 1)})}
+                onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(',')})}
             />
             <FormControl required variant='filled' fullWidth margin='dense'>
                 <InputLabel className={ classes.label }>Category</InputLabel>

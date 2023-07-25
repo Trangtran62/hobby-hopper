@@ -6,23 +6,25 @@ import MoreHorizonIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
-import { deletePost } from '../../../reducers/posts';
+import { deletePost, likePost } from '../../../reducers/posts';
 import { postCurrentId } from '../../../reducers/ids';
 
 
 const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [show, setShow] = useState(true);
 
     const handleDelete = () => {
         dispatch(deletePost(post._id));
         setShow(false);
     }
 
+    const handleLike = () => {
+        dispatch(likePost(post._id));
+    }
+
     return (
         <div>
-            { show ? (
             <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
@@ -35,14 +37,14 @@ const Post = ({ post }) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => tag )}</Typography>
+                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag}` )}</Typography>
             </div>
             <CardContent>
                 <Typography className={classes.title} variant='h5' color='secondary' gutterBottom>{post.title}</Typography>
                 <Typography className={classes.details} variant='body1' gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
-                <Button size='small' color='primary' onClick={() => {}}>
+                <Button size='small' color='primary' onClick={handleLike}>
                     <ThumbUpAltIcon fontSize='small' />
                     Like
                     {post.likeCount}
@@ -53,8 +55,6 @@ const Post = ({ post }) => {
                 </Button>
             </CardActions>
             </Card>
-            ) : null
-            }
         </div>
     );
 };
