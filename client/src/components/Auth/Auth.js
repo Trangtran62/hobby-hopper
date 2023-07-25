@@ -6,7 +6,7 @@ import Input from './Input';
 
 const Auth = () => {
     const classes = useStyles();
-    const isSignup = false;
+    const isSignup = true;
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = () => {};
@@ -32,9 +32,10 @@ const Auth = () => {
                                         half
                                     />
                                     <Input 
-                                        name="firstName" 
-                                        label="First Name" 
+                                        name="lasttName" 
+                                        label="Last Name" 
                                         handleChange={handleChange}
+                                        autoFocus
                                         half
                                     />                             
                                 </>
