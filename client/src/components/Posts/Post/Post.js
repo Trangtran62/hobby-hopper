@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,7 +16,6 @@ const Post = ({ post }) => {
 
     const handleDelete = () => {
         dispatch(deletePost(post._id));
-        setShow(false);
     }
 
     const handleLike = () => {
@@ -37,7 +36,7 @@ const Post = ({ post }) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag}` )}</Typography>
+                <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} ` )}</Typography>
             </div>
             <CardContent>
                 <Typography className={classes.title} variant='h5' color='secondary' gutterBottom>{post.title}</Typography>
@@ -46,12 +45,11 @@ const Post = ({ post }) => {
             <CardActions className={classes.CardActions}>
                 <Button size='small' color='primary' onClick={handleLike}>
                     <ThumbUpAltIcon fontSize='small' />
-                    Like
-                    {post.likeCount}
+                    <Typography variant='caption'> Like {post.likeCount} </Typography>
                 </Button>
                 <Button size='small' color='primary' onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
-                    Delete
+                    <Typography variant='caption'>Delete</Typography>
                 </Button>
             </CardActions>
             </Card>

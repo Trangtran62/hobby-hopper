@@ -134,7 +134,7 @@ const Form = () => {
                 helperText='Comma separated, no white space'
                 fullWidth
                 value={postData.tags ? postData.tags : ' '}
-                onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(',')})}
+                onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(",")})}
             />
             <FormControl required variant='filled' fullWidth margin='dense'>
                 <InputLabel className={ classes.label }>Category</InputLabel>
