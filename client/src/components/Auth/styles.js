@@ -23,12 +23,10 @@ export default makeStyles((theme) => ({
         width: '100%',
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    googleButton: {
-        marginBottom: theme.spacing(2),
+        margin: theme.spacing(2, 0, 2),
     },
     button: {
+        marginTop: theme.spacing(1),
         textTransform: 'none',
         '&:hover': {
             backgroundColor: deepPurple[100],

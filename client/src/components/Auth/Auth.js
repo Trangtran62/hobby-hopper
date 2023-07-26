@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
+import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import useStyles from './styles';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import Input from './Input';
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 const Auth = () => {
     const classes = useStyles();
@@ -67,8 +68,14 @@ const Auth = () => {
                         {isSignup ? "Sign Up" : "Sign In"}
                     </Button>
                     <Grid container justifyContent="center">
+                        <GoogleLogin
+                            onSuccess={(res) => console.log(res)}
+                            onError={(err) => console.log(err)}
+                        />
+                    </Grid>
+                    <Grid container justifyContent="center">
                         <Grid item>
-                            <Button className={classes.button} variant="text" onClick={switchMode}>
+                            <Button className={classes.button} onClick={switchMode}>
                                 {isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign up"}
                             </Button>
                         </Grid>

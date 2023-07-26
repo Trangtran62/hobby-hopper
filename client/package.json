@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
@@ -12,11 +13,13 @@
     "@mui-treasury/styles": "^1.13.1",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
+    "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "dotenv": "^16.3.1",
     "install-peerdeps": "^3.0.3",
     "jwt-decode": "^3.1.2",
     "material-ui-chip-input": "^1.1.0",
