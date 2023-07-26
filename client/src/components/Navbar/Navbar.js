@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const classes = useStyles();
-    console.log(useSelector((state) => (state)));
     const user = useSelector((state) => (state.users.currentUser ? state.users.currentUser : null));
     const dispatch = useDispatch();
     const nav = useNavigate();
