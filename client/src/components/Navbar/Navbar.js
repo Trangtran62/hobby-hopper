@@ -2,10 +2,21 @@ import React from "react";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../../reducers/users";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const classes = useStyles();
-    const user = null;
+    console.log(useSelector((state) => (state)));
+    const user = useSelector((state) => (state.users.currentUser ? state.users.currentUser : null));
+    const dispatch = useDispatch();
+    const nav = useNavigate();
+
+    const logOut = () => {
+        dispatch(clearUser());
+        nav('/auth');
+    }
 
     return (
         <AppBar className={classes.appBar} position='static' color='inherit'>
@@ -15,9 +26,11 @@ const Navbar = () => {
             <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
-                        <Avatar className={classes.purple} alt={user.result.given_name} src={user.result.imageUrl}>{user.result.given_name.charAt(0)}</Avatar>
-                        <Typography className={classes.userName} variant="h6">{user.result.give_name}</Typography>
-                        <Button variant="outlined" className={classes.logout} color="secondary" onClick={() => {}}>Log Out</Button>
+                        <div className={classes.userName}>
+                            <Avatar className={classes.purple} alt={user.name} src={user.picture}></Avatar>
+                            <Typography variant="h6">{user.name}</Typography>
+                        </div>
+                        <Button variant="outlined" color="primary" size="small" onClick={logOut}>Log Out</Button>
                     </div>
                 ) : (
                     <Button component={Link} to="/auth" variant="outlined" size="small" color="primary">Sign In</Button>

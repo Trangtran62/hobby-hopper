@@ -6,6 +6,8 @@ import Input from './Input';
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import { postUser } from '../../reducers/users';
 
 const Auth = () => {
     const classes = useStyles();
@@ -20,9 +22,15 @@ const Auth = () => {
     const switchMode = () => setIsSignup(!isSignup);
 
     const googleSuccess = async (res) => {
-        const result = res?.credential;
+        const result = jwt_decode(res?.credential);
+        const user = {
+            _id: result.sub,
+            name: result.name,
+            picture: result.picture,
+        };
+        
         try {
-            // dispatch();
+            dispatch(postUser(user));
             nav('/');
         } catch (err) {
             console.log(err);

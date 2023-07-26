@@ -12,10 +12,10 @@ const usersSlice = createSlice({
     initialState,
     reducers: {
         postUser(state, action) {
-            state.entities = action.payload;
+            state.currentUser = action.payload;
         },
         clearUser(state, action) {
-            state.entities = undefined;
+            state.currentUser = undefined;
         }
     }});
 

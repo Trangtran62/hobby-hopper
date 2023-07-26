@@ -22,10 +22,7 @@ const Form = () => {
 
     const [postData, setPostData] = useState({ initialData });
     const currentId = useSelector((state) => state.ids.currentId);
-    console.log(`Current ID: ${currentId}`);
     const post = useSelector((state) => currentId ? state.posts.entities[currentId] : null);
-    console.log(`Current form field values - post data from state:`);
-    console.log(post);
     const classes = useStyles();
     const dispatch = useDispatch();
 
