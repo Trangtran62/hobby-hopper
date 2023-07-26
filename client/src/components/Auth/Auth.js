@@ -3,17 +3,31 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import useStyles from './styles';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import Input from './Input';
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
     const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const nav = useNavigate();
 
     const handleSubmit = () => {};
     const handleChange = () => {};
     const handleShowPassword = () => setShowPassword(!showPassword);
     const switchMode = () => setIsSignup(!isSignup);
+
+    const googleSuccess = async (res) => {
+        const result = res?.credential;
+        try {
+            // dispatch();
+            nav('/');
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -69,7 +83,7 @@ const Auth = () => {
                     </Button>
                     <Grid container justifyContent="center">
                         <GoogleLogin
-                            onSuccess={(res) => console.log(res)}
+                            onSuccess={googleSuccess}
                             onError={(err) => console.log(err)}
                         />
                     </Grid>
