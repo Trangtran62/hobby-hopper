@@ -1,10 +1,12 @@
 import User from "../models/user.js";
-import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import mongoose from "mongoose";
 
 dotenv.config();
+
+const TOKEN = process.env.TOKEN;
 
 export const signin = async (req, res) => {
     const { email, password } = req.body;
@@ -34,11 +36,33 @@ export const signup = async (req, res) => {
         if (password !== confirmPassword) return res.status(400).json({ message: "Password does not match" });
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
-        const token = jwt.sign({ email: result.email, id: result._id }, process.env.TOKEN, { expireIn: "1h "});
+        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
+        const token = jwt.sign({ email: result.email, id: result._id }, TOKEN, { expiresIn: "1h"});
 
         res.status(200).json({ result, token });
     } catch (err) {
+        console.log(err);
         res.status(500).json({ message: "error" });
     }
+}
+
+export const getUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const deleteUser = async (req, res) => {
+    const { id: _id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(404).send('No id found');
+    }
+
+    await User.findByIdAndRemove(_id);
+
+    res.json({ message: 'Post successfully deleted' });
 }
