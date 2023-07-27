@@ -16,8 +16,14 @@ const usersSlice = createSlice({
         },
         clearUser(state, action) {
             state.currentUser = undefined;
+        },
+        signin(state, action) {
+
+        },
+        signup(state, action) {
+
         }
     }});
 
-export const { postUser, clearUser } = usersSlice.actions;
+export const { postUser, clearUser, signin, signup } = usersSlice.actions;
 export default usersSlice.reducer;

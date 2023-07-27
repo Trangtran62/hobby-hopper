@@ -8,17 +8,39 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { postUser } from '../../reducers/users';
+import { signin, signup } from '../../reducers/users';
+
+const initialData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+};
 
 const Auth = () => {
     const classes = useStyles();
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState(initialData);
     const dispatch = useDispatch();
     const nav = useNavigate();
 
-    const handleSubmit = () => {};
-    const handleChange = () => {};
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (isSignup) {
+            dispatch(signup({form: formData, nav: nav}));
+        } else {
+            dispatch(signin({form: formData, nav: nav}));
+        }
+    };
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+    };
+
     const handleShowPassword = () => setShowPassword(!showPassword);
+
     const switchMode = () => setIsSignup(!isSignup);
 
     const googleSuccess = async (res) => {
