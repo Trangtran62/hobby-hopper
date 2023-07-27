@@ -30,9 +30,9 @@ const Auth = () => {
         event.preventDefault();
 
         if (isSignup) {
-            dispatch(signup({form: formData, nav: nav}));
+            dispatch(signup({form: formData, nav}));
         } else {
-            dispatch(signin({form: formData, nav: nav}));
+            dispatch(signin({form: formData, nav}));
         }
     };
     const handleChange = (event) => {
