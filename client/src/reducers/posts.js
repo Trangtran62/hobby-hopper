@@ -5,7 +5,6 @@ import {
 } from '@reduxjs/toolkit';
 
 import * as api from '../api';
-// import { createTheme } from '@material-ui/core';
 
 const postsAdapter = createEntityAdapter({selectId: (instance) => instance._id});
 

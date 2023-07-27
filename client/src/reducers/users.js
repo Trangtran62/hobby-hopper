@@ -1,11 +1,18 @@
 import {
     createSlice, 
+    createAsyncThunk,
     createEntityAdapter
 } from '@reduxjs/toolkit';
 
-const idsAdapter = createEntityAdapter()
+import * as api from '../api';
 
-const initialState = idsAdapter.getInitialState();
+const usersAdapter = createEntityAdapter({selectId: (instance) => instance._id});
+
+const initialState = usersAdapter.getInitialState();
+
+export const signin = createAsyncThunk();
+
+export const signup = createAsyncThunk();
 
 const usersSlice = createSlice({
     name: 'users',
@@ -16,14 +23,13 @@ const usersSlice = createSlice({
         },
         clearUser(state, action) {
             state.currentUser = undefined;
-        },
-        signin(state, action) {
-
-        },
-        signup(state, action) {
-
         }
-    }});
+    },
+    extraReducers: builder => {
+        builder
+            .addCase()
+    }
+});
 
-export const { postUser, clearUser, signin, signup } = usersSlice.actions;
+export const { postUser, clearUser } = usersSlice.actions;
 export default usersSlice.reducer;
