@@ -18,7 +18,7 @@ export const signin = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid password" });
 
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.TOKEN, { expireIn: "1h "});
+        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, TOKEN, { expiresIn: "1h"});
 
         res.status(200).json({ result: existingUser, token });
     } catch (err) {
@@ -41,7 +41,6 @@ export const signup = async (req, res) => {
 
         res.status(200).json({ result, token });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "error" });
     }
 }
