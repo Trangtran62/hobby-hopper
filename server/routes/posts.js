@@ -8,6 +8,5 @@ router.get('/', getPosts);
 router.post('/', auth, createPost);
 router.patch('/:id', auth, updatePost); 
 router.delete('/:id', auth, deletePost); 
-router.patch('/:id/likePost', auth, likePost); // Have another middleware to allow liking a post once
-
+router.patch('/:id/likePost', auth, likePost); 
 export default router;
