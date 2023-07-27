@@ -10,16 +10,19 @@ const usersAdapter = createEntityAdapter({selectId: (instance) => instance._id})
 
 const initialState = usersAdapter.getInitialState();
 
-export const signin = createAsyncThunk('', async (params) => {
-
+export const signin = createAsyncThunk('users/signin', async (params) => {
+    const response = await api.signIn(params.form);
     const nav = params.nav;
-    nav('/');
+    await nav('/');
+    return response;
 });
 
-export const signup = createAsyncThunk('', async (params) => {
-
+export const signup = createAsyncThunk('users/signup', async (params) => {
+    console.log(params.form);
+    const response = await api.signUp(params.form)
     const nav = params.nav;
-    nav('/');
+    await nav('/');
+    return response;
 });
 
 const usersSlice = createSlice({
@@ -35,8 +38,23 @@ const usersSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase()
-            .addCase()
+            .addCase(signin.fulfilled, (state, action) => {
+                const data = action.payload.data;
+                state.currentUser = data.result;
+                // if (data.status === 200) {
+                //     state.currentUser = data.result;
+                // } else {
+                //     console.log(data.message);
+                // }
+            })
+            .addCase(signup.fulfilled, (state, action) => {
+                usersAdapter.addOne(action.payload.result);
+                // if (data.status === 200) {
+                //     usersAdapter.upsertOne(state, data.result);
+                // } else {
+                //     console.log(data.message);
+                // }
+            })
     }
 });
 
