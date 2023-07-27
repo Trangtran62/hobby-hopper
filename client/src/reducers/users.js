@@ -48,7 +48,7 @@ const usersSlice = createSlice({
                 // }
             })
             .addCase(signup.fulfilled, (state, action) => {
-                usersAdapter.addOne(action.payload.result);
+                usersAdapter.addOne(action.payload.data.result);
                 // if (data.status === 200) {
                 //     usersAdapter.upsertOne(state, data.result);
                 // } else {
