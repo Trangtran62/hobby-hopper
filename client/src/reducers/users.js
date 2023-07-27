@@ -10,9 +10,17 @@ const usersAdapter = createEntityAdapter({selectId: (instance) => instance._id})
 
 const initialState = usersAdapter.getInitialState();
 
-export const signin = createAsyncThunk();
+export const signin = createAsyncThunk('', async (params) => {
 
-export const signup = createAsyncThunk();
+    const nav = params.nav;
+    nav('/');
+});
+
+export const signup = createAsyncThunk('', async (params) => {
+
+    const nav = params.nav;
+    nav('/');
+});
 
 const usersSlice = createSlice({
     name: 'users',
@@ -27,6 +35,7 @@ const usersSlice = createSlice({
     },
     extraReducers: builder => {
         builder
+            .addCase()
             .addCase()
     }
 });
