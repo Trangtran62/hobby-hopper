@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import useStyles from './styles';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { postUser } from '../../reducers/users';
 import { signin, signup } from '../../reducers/users';
+import Swal from 'sweetalert2';
 
 const initialData = {
     firstName: '',
@@ -23,16 +24,27 @@ const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState(initialData);
+
     const dispatch = useDispatch();
     const nav = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (isSignup) {
-            dispatch(signup({form: formData, nav}));
+            const result = await dispatch(signup({form: formData, nav}));
+            
+            if (result.error) {
+                const newError = JSON.stringify(result.payload);
+                Swal.fire({text: newError, icon: 'error'});
+            };
         } else {
-            dispatch(signin({form: formData, nav}));
+            const result = await dispatch(signin({form: formData, nav}));
+
+            if (result.error) {
+                const newError = JSON.stringify(result.payload);
+                Swal.fire({text: newError, icon: 'error'});
+            };
         }
     };
     const handleChange = (event) => {
