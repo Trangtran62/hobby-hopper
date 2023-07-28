@@ -6,7 +6,7 @@ import {
 
 import * as api from '../api';
 
-const usersAdapter = createEntityAdapter({selectId: (instance) => instance._id});
+const usersAdapter = createEntityAdapter();
 
 const initialState = usersAdapter.getInitialState();
 
@@ -18,7 +18,6 @@ export const signin = createAsyncThunk('users/signin', async (params) => {
 });
 
 export const signup = createAsyncThunk('users/signup', async (params) => {
-    console.log(params.form);
     const response = await api.signUp(params.form)
     const nav = params.nav;
     await nav('/');
@@ -39,8 +38,7 @@ const usersSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(signin.fulfilled, (state, action) => {
-                const data = action.payload.data;
-                state.currentUser = data.result;
+                state.currentUser = action.payload.data;
                 // if (data.status === 200) {
                 //     state.currentUser = data.result;
                 // } else {
@@ -48,7 +46,7 @@ const usersSlice = createSlice({
                 // }
             })
             .addCase(signup.fulfilled, (state, action) => {
-                usersAdapter.addOne(action.payload.data.result);
+                state.currentUser = action.payload.data;
                 // if (data.status === 200) {
                 //     usersAdapter.upsertOne(state, data.result);
                 // } else {

@@ -46,9 +46,12 @@ const Auth = () => {
     const googleSuccess = async (res) => {
         const result = jwt_decode(res?.credential);
         const user = {
-            _id: result.sub,
-            name: result.name,
-            picture: result.picture,
+            result: {
+                _id: result.sub,
+                name: result.name,
+                picture: result.picture,
+            },
+            token: res?.credential
         };
         
         try {

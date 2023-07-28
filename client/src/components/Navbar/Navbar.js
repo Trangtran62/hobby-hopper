@@ -26,8 +26,8 @@ const Navbar = () => {
                 {user ? (
                     <div className={classes.profile}>
                         <div className={classes.userName}>
-                            <Avatar className={classes.purple} alt={user.name} src={user.picture}></Avatar>
-                            <Typography variant="h6">{user.name}</Typography>
+                            <Avatar className={classes.purple} alt={user.result.name} src={user.result.picture}></Avatar>
+                            <Typography variant="h6">{user.result.name}</Typography>
                         </div>
                         <Button variant="outlined" color="primary" size="small" onClick={logOut}>Log Out</Button>
                     </div>
