@@ -3,7 +3,7 @@ import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUser } from "../../reducers/users";
+import { logOut } from "../../reducers/users";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -12,8 +12,8 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
 
-    const logOut = () => {
-        dispatch(clearUser());
+    const handleLogOut = () => {
+        dispatch(logOut());
         nav('/auth');
     }
 
@@ -29,7 +29,7 @@ const Navbar = () => {
                             <Avatar className={classes.purple} alt={user.result.name} src={user.result.picture}></Avatar>
                             <Typography variant="h6">{user.result.name}</Typography>
                         </div>
-                        <Button variant="outlined" color="primary" size="small" onClick={logOut}>Log Out</Button>
+                        <Button variant="outlined" color="primary" size="small" onClick={handleLogOut}>Log Out</Button>
                     </div>
                 ) : (
                     <Button component={Link} to="/auth" variant="outlined" size="small" color="primary">Sign In</Button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import useStyles from './styles';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -7,8 +7,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import { postUser } from '../../reducers/users';
-import { signin, signup } from '../../reducers/users';
+import { signin, signup, postUser } from '../../reducers/users';
 import Swal from 'sweetalert2';
 
 const initialData = {

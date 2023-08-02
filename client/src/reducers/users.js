@@ -38,9 +38,11 @@ const usersSlice = createSlice({
     reducers: {
         postUser(state, action) {
             state.currentUser = action.payload;
+            localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
         },
-        clearUser(state, action) {
+        logOut(state, action) {
             state.currentUser = undefined;
+            localStorage.clear();
         }
     },
     extraReducers: builder => {
@@ -50,7 +52,6 @@ const usersSlice = createSlice({
                 localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
             })
             .addCase(signin.rejected, (state, action) => {
-                console.log(action.payload);
                 return action.payload;
             })
             .addCase(signup.fulfilled, (state, action) => {
@@ -63,5 +64,5 @@ const usersSlice = createSlice({
     }
 });
 
-export const { postUser, clearUser } = usersSlice.actions;
+export const { logOut, postUser } = usersSlice.actions;
 export default usersSlice.reducer;
