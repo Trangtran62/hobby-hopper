@@ -78,8 +78,9 @@ const Form = () => {
 
 
     return (
+        <>
+        {user ? (
         <Paper className={classes.paper}>
-            {user ? (
             <form autoComplete='off' className={classes.form} onSubmit={handleSubmit}>
                 <Typography variant='h6'>{currentId ? 'Edit' : 'Create' } a Post</Typography>
                 <TextField 
@@ -164,8 +165,9 @@ const Form = () => {
                 <Button className={classes.buttonSubmit} variant='outlined' color='primary' size='small' type='submit' fullWidth>Submit</Button>
                 <Button className={classes.buttonSubmit} variant='outlined' color='secondary' size='small' onClick={clear} fullWidth>Clear</Button>
             </form>
-            ) : <p align='center'>Sign in to create a trade post</p>}
         </Paper>
+        ) : null }
+        </>
     );
 };
 
