@@ -46,14 +46,16 @@ const usersSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(signin.fulfilled, (state, action) => {
-                state.currentUser = action.payload;
+                state.currentUser = action.payload; // Include user data and token
+                localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
             })
             .addCase(signin.rejected, (state, action) => {
                 console.log(action.payload);
                 return action.payload;
             })
             .addCase(signup.fulfilled, (state, action) => {
-                state.currentUser = action.payload;
+                state.currentUser = action.payload; // Include user data and token
+                localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
             })
             .addCase(signup.rejected, (state, action) => {
                 return action.payload;
