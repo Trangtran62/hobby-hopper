@@ -12,7 +12,7 @@ const Form = () => {
     const user = useSelector((state) => (state.users.currentUser ? state.users.currentUser : null));
 
     const initialData = {
-        creator: user?.name,
+        creator: '',
         title: '',
         message: '',
         tags: '',
@@ -21,10 +21,9 @@ const Form = () => {
     };
 
     const categoryList = ['Arts&Crafts', 'Fitness', 'Gardening', 'Boardgame', 'Electronics', 'Cooking', 'Others'];
-
-    const [postData, setPostData] = useState({ initialData });
+    const [postData, setPostData] = useState({ ...initialData });
     const currentId = useSelector((state) => state.ids.currentId);
-    const post = useSelector((state) => currentId ? state.posts.entities[currentId] : null);
+    const post = useSelector((state) => currentId ? state.posts.entities[currentId] : null)
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -93,7 +92,7 @@ const Form = () => {
                     variant='outlined' 
                     label='Creator'
                     fullWidth
-                    value={postData.creator ? postData.creator : ' '}
+                    value={user?.result.name}
                     onChange={(event) => setPostData({ ...postData, creator: event.target.value })}
                 />
                 <TextField 
