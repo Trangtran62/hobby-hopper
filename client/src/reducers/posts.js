@@ -30,9 +30,15 @@ export const deletePost = createAsyncThunk('posts/deletePost', async (id) => {
     return id;
 });
 
-export const likePost = createAsyncThunk('posts/likeCount', async (id) => {
-    const response = await api.likePost(id);
-    return response.data;
+export const likePost = createAsyncThunk('posts/likeCount', async (params, { rejectWithValue }) => {
+    try {
+        const response = await api.likePost(params.id, params.userId);
+        console.log(params.userId);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue("Log in to interact with posts")
+    }
+
 })
 
 const postsSlice = createSlice({
@@ -55,6 +61,9 @@ const postsSlice = createSlice({
             })
             .addCase(likePost.fulfilled, (state, action) => {
                 postsAdapter.upsertOne(state, action.payload);   
+            })
+            .addCase(likePost.rejected, (state, action) => {
+                return action.payload;
             })
     }
 });

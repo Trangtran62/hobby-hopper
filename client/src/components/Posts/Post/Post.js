@@ -1,25 +1,47 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizonIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import useStyles from './styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, likePost } from '../../../reducers/posts';
 import { postCurrentId } from '../../../reducers/ids';
+import Swal from 'sweetalert2';
 
 
 const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.users.currentUser);
+    console.log(user);
+
+    const Likes = () => {
+        if (post?.likes?.length > 0) {
+            return post.likes.find((like) => like === user?.result?._id)
+                ? (
+                    <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
+                ) : (
+                    <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+                );
+        }
+    
+        return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
+    };
 
     const handleDelete = () => {
         dispatch(deletePost(post._id));
     }
 
-    const handleLike = () => {
-        dispatch(likePost(post._id));
+    const handleLike = async () => {
+        const result = await dispatch(likePost({ id: post._id, userId: user?.result._id }));
+        
+        if (result.error) {
+            const newError = JSON.stringify(result.payload);
+            Swal.fire({text: newError, icon: 'error'});
+        }
     }
 
     return (
@@ -43,9 +65,12 @@ const Post = ({ post }) => {
                 <Typography className={classes.details} variant='body1' gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
-                <Button size='small' color='primary' onClick={handleLike}>
+                {/* <Button size='small' color='primary' onClick={handleLike}>
                     <ThumbUpAltIcon fontSize='small' />
-                    <Typography variant='caption'> Like {post.likeCount} </Typography>
+                    <Typography variant='caption'> Like {post.likes.length} </Typography>
+                </Button> */}
+                <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
+                    <Likes />
                 </Button>
                 <Button size='small' color='primary' onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
