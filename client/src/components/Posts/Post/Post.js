@@ -16,7 +16,9 @@ const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.users.currentUser);
-    console.log(user);
+    console.log(user?.result?.name);   
+    console.log(post?.creator);
+    console.log((user?.result.name !== post.creator)); 
 
     const Likes = () => {
         if (post?.likes?.length > 0) {
@@ -31,8 +33,13 @@ const Post = ({ post }) => {
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
     };
 
-    const handleDelete = () => {
-        dispatch(deletePost(post._id));
+    const handleDelete = async () => {
+        const result = await dispatch(deletePost(post._id));
+        
+        if (result.error) {
+            const newError = JSON.stringify(result.payload);
+            Swal.fire({text: newError, icon: 'error'});
+        }
     }
 
     const handleLike = async () => {
@@ -65,14 +72,10 @@ const Post = ({ post }) => {
                 <Typography className={classes.details} variant='body1' gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
-                {/* <Button size='small' color='primary' onClick={handleLike}>
-                    <ThumbUpAltIcon fontSize='small' />
-                    <Typography variant='caption'> Like {post.likes.length} </Typography>
-                </Button> */}
                 <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
                     <Likes />
                 </Button>
-                <Button size='small' color='primary' onClick={handleDelete}>
+                <Button size='small' color='primary' disabled={(user?.result.name !== post.creator)} onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
                     <Typography variant='caption'>Delete</Typography>
                 </Button>

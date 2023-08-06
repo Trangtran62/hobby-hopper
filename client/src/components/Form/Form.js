@@ -31,7 +31,8 @@ const Form = () => {
         if (post) {
             setPostData(post);
         };
-    }, [post]);
+        setPostData({ ...initialData, creator: user?.result.name });
+    }, [post, user]);
 
     const clear = () => {
         dispatch(clearCurrentId());

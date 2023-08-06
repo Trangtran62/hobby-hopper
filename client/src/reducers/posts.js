@@ -25,18 +25,21 @@ export const updatePost = createAsyncThunk('posts/updatePost', async params => {
     return response.data;
 });
 
-export const deletePost = createAsyncThunk('posts/deletePost', async (id) => {
-    await api.deletePost(id);
-    return id;
+export const deletePost = createAsyncThunk('posts/deletePost', async (id, { rejectWithValue }) => {
+    try {
+        await api.deletePost(id);
+        return id;
+    } catch (err) {
+        return rejectWithValue("Unauthenticated");
+    }
 });
 
 export const likePost = createAsyncThunk('posts/likeCount', async (params, { rejectWithValue }) => {
     try {
         const response = await api.likePost(params.id, params.userId);
-        console.log(params.userId);
         return response.data;
     } catch (error) {
-        return rejectWithValue("Log in to interact with posts")
+        return rejectWithValue("Log in to interact with posts");
     }
 
 })
@@ -58,6 +61,9 @@ const postsSlice = createSlice({
             })
             .addCase(deletePost.fulfilled, (state, action) => {
                 postsAdapter.removeOne(state, action.payload);
+            })
+            .addCase(deletePost.rejected, (state, action) => {
+                return action.payload;
             })
             .addCase(likePost.fulfilled, (state, action) => {
                 postsAdapter.upsertOne(state, action.payload);   
