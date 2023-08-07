@@ -16,9 +16,6 @@ const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.users.currentUser);
-    console.log(user?.result?.name);   
-    console.log(post?.creator);
-    console.log((user?.result.name !== post.creator)); 
 
     const Likes = () => {
         if (post?.likes?.length > 0) {
