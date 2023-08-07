@@ -18,6 +18,11 @@ const postSchema = mongoose.Schema({
     createAt: {
         type: Date,
         default: Date.now()
+    },
+    trade: {
+        type: Boolean,
+        default: false
+    
     }
 });
 

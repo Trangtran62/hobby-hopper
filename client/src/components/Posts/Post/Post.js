@@ -49,6 +49,10 @@ const Post = ({ post }) => {
         }
     }
 
+    const handleToggle = async () => {
+        const result = 
+    }
+
     return (
         <div>
             <Card className={classes.card}>
@@ -58,7 +62,7 @@ const Post = ({ post }) => {
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <FormControlLabel control={<Switch color="secondary" size="small" />} label="Traded" />
+                <FormControlLabel control={<Switch color="secondary" size="small" />} label="Traded" disabled={(user?.result.name !== post?.creator)} />
             </div>
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} ` )}</Typography>
