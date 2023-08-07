@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, likePost } from '../../../reducers/posts';
 import { postCurrentId } from '../../../reducers/ids';
 import Swal from 'sweetalert2';
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const Post = ({ post }) => {
     const classes = useStyles();
@@ -57,9 +58,7 @@ const Post = ({ post }) => {
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button style={{ color: 'white'}} size='small' disabled={(user?.result.name !== post?.creator)} onClick={() => dispatch(postCurrentId(post._id))}>
-                    <MoreHorizonIcon fontSize='medium' />
-                </Button>
+                <FormControlLabel control={<Switch color="secondary" size="small" />} label="Traded" />
             </div>
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} ` )}</Typography>
@@ -75,6 +74,9 @@ const Post = ({ post }) => {
                 <Button size='small' color='primary' disabled={(user?.result.name !== post?.creator)} onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
                     <Typography variant='caption'>Delete</Typography>
+                </Button>                
+                <Button color="primary" size='small' disabled={(user?.result.name !== post?.creator)} onClick={() => dispatch(postCurrentId(post._id))}>
+                    <MoreHorizonIcon fontSize='medium' />Edit
                 </Button>
             </CardActions>
             </Card>
