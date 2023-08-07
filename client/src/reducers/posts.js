@@ -20,9 +20,13 @@ export const createPost = createAsyncThunk('posts/createPost', async newPost => 
     return response.data;
 });
 
-export const updatePost = createAsyncThunk('posts/updatePost', async params => {
-    const response = await api.updatePost(params.id, params.updatedPost);
-    return response.data;
+export const updatePost = createAsyncThunk('posts/updatePost', async (params, { rejectWithValue }) => {
+    try {
+        const response = await api.updatePost(params.id, params.updatedPost);
+        return response.data;
+    } catch (err) {
+        return rejectWithValue("Post not found");
+    }
 });
 
 export const deletePost = createAsyncThunk('posts/deletePost', async (id, { rejectWithValue }) => {

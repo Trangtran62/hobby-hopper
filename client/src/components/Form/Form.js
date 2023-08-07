@@ -159,7 +159,7 @@ const Form = () => {
                     <FileBase
                         required
                         type='file'
-                        multiple={false}
+                        multiple={true}
                         value={postData.selectedFile}
                         onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 }) }
                     />

@@ -7,7 +7,7 @@ import MoreHorizonIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, likePost } from '../../../reducers/posts';
+import { deletePost, likePost, updatePost } from '../../../reducers/posts';
 import { postCurrentId } from '../../../reducers/ids';
 import Swal from 'sweetalert2';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -50,7 +50,12 @@ const Post = ({ post }) => {
     }
 
     const handleToggle = async () => {
-        const result = 
+        const result = await dispatch(updatePost({id: post._id, updatedPost: { ...post, trade: !post.trade }}));
+
+        if (result.error) {
+            const newError = JSON.stringify(result.payload);
+            Swal.fire({ text: newError, icon: 'error' });
+        }
     }
 
     return (
@@ -62,7 +67,7 @@ const Post = ({ post }) => {
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <FormControlLabel control={<Switch color="secondary" size="small" />} label="Traded" disabled={(user?.result.name !== post?.creator)} />
+                <FormControlLabel control={<Switch checked={post.trade} onChange={handleToggle} color="secondary" size="small" />} label="Traded" disabled={(user?.result.name !== post?.creator)} />
             </div>
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} ` )}</Typography>
