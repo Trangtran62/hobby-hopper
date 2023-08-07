@@ -57,7 +57,7 @@ const Post = ({ post }) => {
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button style={{ color: 'white'}} size='small' onClick={() => dispatch(postCurrentId(post._id))}>
+                <Button style={{ color: 'white'}} size='small' disabled={(user?.result.name !== post?.creator)} onClick={() => dispatch(postCurrentId(post._id))}>
                     <MoreHorizonIcon fontSize='medium' />
                 </Button>
             </div>
@@ -72,7 +72,7 @@ const Post = ({ post }) => {
                 <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
                     <Likes />
                 </Button>
-                <Button size='small' color='primary' disabled={(user?.result.name !== post.creator)} onClick={handleDelete}>
+                <Button size='small' color='primary' disabled={(user?.result.name !== post?.creator)} onClick={handleDelete}>
                     <DeleteIcon fontSize='small' />
                     <Typography variant='caption'>Delete</Typography>
                 </Button>

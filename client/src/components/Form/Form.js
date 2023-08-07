@@ -30,8 +30,10 @@ const Form = () => {
     useEffect(() => {
         if (post) {
             setPostData(post);
-        };
-        setPostData({ ...initialData, creator: user?.result.name });
+        } else {
+            setPostData({ ...initialData, creator: user?.result.name });
+        }
+        
     }, [post, user]);
 
     const clear = () => {
