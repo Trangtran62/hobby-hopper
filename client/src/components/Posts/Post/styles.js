@@ -45,9 +45,9 @@ export default makeStyles({
         padding: '0 16px',
     },
     cardActions: {
-        padding: '10px 10px 10px 10px',
+        padding: '0px 0px 0px 0px',
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignContent: "center"
     },
 });

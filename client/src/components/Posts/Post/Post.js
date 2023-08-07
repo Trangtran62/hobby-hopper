@@ -22,9 +22,9 @@ const Post = ({ post }) => {
         if (post?.likes?.length > 0) {
             return post.likes.find((like) => like === user?.result?._id)
                 ? (
-                    <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
+                    <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length}` }</>
                 ) : (
-                    <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+                    <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length}</>
                 );
         }
     
@@ -66,9 +66,6 @@ const Post = ({ post }) => {
                 <Typography variant='body2'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
             </div>
-            <div className={classes.overlay2}>
-                <FormControlLabel control={<Switch checked={post.trade} onChange={handleToggle} color="secondary" size="small" />} label="Traded" disabled={(user?.result.name !== post?.creator)} />
-            </div>
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} ` )}</Typography>
             </div>
@@ -85,8 +82,9 @@ const Post = ({ post }) => {
                     <Typography variant='caption'>Delete</Typography>
                 </Button>                
                 <Button color="primary" size='small' disabled={(user?.result.name !== post?.creator)} onClick={() => dispatch(postCurrentId(post._id))}>
-                    <MoreHorizonIcon fontSize='medium' />Edit
+                    <MoreHorizonIcon fontSize='small' />Edit
                 </Button>
+                <FormControlLabel control={<Switch checked={post.trade} onChange={handleToggle} color="secondary" size="small" />} label={(user?.result.name == post?.creator) ? <Typography variant='caption' color='primary'>TRADED</Typography> : "Traded"} disabled={(user?.result.name !== post?.creator)} />
             </CardActions>
             </Card>
         </div>
