@@ -33,12 +33,12 @@ const Form = () => {
         } else {
             setPostData({ ...initialData, creator: user?.result.name });
         }
-        
+
     }, [post, user]);
 
     const clear = () => {
         dispatch(clearCurrentId());
-        setPostData(initialData);
+        setPostData({ ...initialData, creator: user?.result.name });
     };
 
     const handleSubmit = (event) => {
@@ -108,7 +108,7 @@ const Form = () => {
                     variant='outlined' 
                     label='Title' 
                     fullWidth
-                    value={postData.title ? postData.title : ' '}
+                    value={postData.title ? postData.title : ''}
                     onChange={(event) => setPostData({ ...postData, title: event.target.value })}
                 />
                 <TextField 
@@ -122,7 +122,7 @@ const Form = () => {
                     variant='outlined' 
                     label='Message' 
                     fullWidth
-                    value={postData.message ? postData.message : ' '}
+                    value={postData.message ? postData.message : ''}
                     minRows={4}
                     onChange={(event) => setPostData({ ...postData, message: event.target.value })}
                 />
@@ -136,7 +136,7 @@ const Form = () => {
                     label='Tags' 
                     helperText='Comma separated, no white space'
                     fullWidth
-                    value={postData.tags ? postData.tags : ' '}
+                    value={postData.tags ? postData.tags : ''}
                     onChange={(event) => setPostData({ ...postData, tags: event.target.value.split(",")})}
                 />
                 <FormControl required variant='filled' fullWidth margin='dense'>
