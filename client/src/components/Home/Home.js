@@ -22,14 +22,12 @@ const Home = () => {
         <Grow in>
             <Container>
                 <Grid className={classes.mainContainer} container justifyContent='space-between' alignItems='stretch' spacing={3}>
-                    <Grid item xs={12} sm={7}>
+                    <Grid item xs={12} sm={8}>
                         <Posts />
+                        <Pagination />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Form />
-                        <Paper elevation={6}>
-                            <Pagination />
-                        </Paper>
                     </Grid>
                 </Grid>
             </Container>
