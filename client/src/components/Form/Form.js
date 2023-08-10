@@ -167,9 +167,9 @@ const Form = () => {
                     <FileBase
                         required
                         type='file'
-                        multiple={true}
+                        multiple={false}
                         value={postData.selectedFile}
-                        onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 }) }
+                        onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 })}
                     />
                 </div>
                 <Button className={classes.buttonSubmit} variant='outlined' color='primary' size='small' type='submit' fullWidth>Submit</Button>

@@ -61,7 +61,7 @@ const Post = ({ post }) => {
     return (
         <div>
             <Card className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile[0]} title={post.title} />
+            <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='body2'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
