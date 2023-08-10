@@ -20,6 +20,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "dotenv": "^16.3.1",
+    "emoji-picker-react": "^4.4.10",
     "install-peerdeps": "^3.0.3",
     "jwt-decode": "^3.1.2",
     "material-ui-chip-input": "^1.1.0",

@@ -61,7 +61,7 @@ const Post = ({ post }) => {
     return (
         <div>
             <Card className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+            <CardMedia className={classes.media} image={post.selectedFile[0]} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='body2'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
@@ -84,7 +84,7 @@ const Post = ({ post }) => {
                 <Button color="primary" size='small' disabled={(user?.result.name !== post?.creator)} onClick={() => dispatch(postCurrentId(post._id))}>
                     <MoreHorizonIcon fontSize='small' />Edit
                 </Button>
-                <FormControlLabel control={<Switch checked={post.trade} onChange={handleToggle} color="secondary" size="small" />} label={(user?.result.name == post?.creator) ? <Typography variant='caption' color='primary'>TRADED</Typography> : "Traded"} disabled={(user?.result.name !== post?.creator)} />
+                <FormControlLabel control={<Switch checked={post.trade} onChange={handleToggle} color="secondary" size="small" />} label={(user?.result.name === post?.creator) ? <Typography variant='caption' color='primary'>TRADED</Typography> : "Traded"} disabled={(user?.result.name !== post?.creator)} />
             </CardActions>
             </Card>
         </div>

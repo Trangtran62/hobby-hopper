@@ -7,6 +7,7 @@ import { createPost, updatePost } from '../../reducers/posts';
 import { clearCurrentId } from '../../reducers/ids';
 import { useMinimalSelectStyles } from '@mui-treasury/styles/select/minimal';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EmojiPicker from 'emoji-picker-react';
 
 const Form = () => {
     const user = useSelector((state) => (state.users.currentUser ? state.users.currentUser : null));
@@ -51,6 +52,10 @@ const Form = () => {
         };
 
         clear();
+    };
+
+    const handleEmoji = (emojiData) => {
+        setPostData({ ...postData, message: postData.message + ' ' + emojiData.emoji });
     };
 
     // Drop down menu styling for category
@@ -111,21 +116,24 @@ const Form = () => {
                     value={postData.title ? postData.title : ''}
                     onChange={(event) => setPostData({ ...postData, title: event.target.value })}
                 />
-                <TextField 
-                    required
-                    margin='dense'
-                    color='secondary'
-                    InputLabelProps={{ shrink: true, className: classes.label }}
-                    InputProps={{ classes: { notchedOutline: classes.notchedOutline }}}
-                    multiline
-                    name='message' 
-                    variant='outlined' 
-                    label='Message' 
-                    fullWidth
-                    value={postData.message ? postData.message : ''}
-                    minRows={4}
-                    onChange={(event) => setPostData({ ...postData, message: event.target.value })}
-                />
+                <div>
+                    <TextField 
+                        required
+                        margin='dense'
+                        color='secondary'
+                        InputLabelProps={{ shrink: true, className: classes.label }}
+                        InputProps={{ classes: { notchedOutline: classes.notchedOutline }}}
+                        multiline
+                        name='message' 
+                        variant='outlined' 
+                        label='Message' 
+                        fullWidth
+                        value={postData.message ? postData.message : ''}
+                        minRows={4}
+                        onChange={(event) => setPostData({ ...postData, message: event.target.value })}
+                    />
+                    <EmojiPicker onEmojiClick={handleEmoji} />
+                </div>
                 <TextField 
                     margin='dense'
                     color='secondary'
