@@ -10,9 +10,13 @@ const postsAdapter = createEntityAdapter({selectId: (instance) => instance._id})
 
 const initialState = postsAdapter.getInitialState();
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    const response = await api.fetchPosts();
-    return response.data;
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (page, { rejectWithValue }) => {
+    try {
+        const response = await api.fetchPosts(page);
+        return response.data.posts;
+    } catch (err) {
+        return rejectWithValue("Can't get posts");
+    }
 });
 
 export const createPost = createAsyncThunk('posts/createPost', async newPost => {

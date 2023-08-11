@@ -9,6 +9,8 @@ import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+
     return (
         <GoogleOAuthProvider clientId="221648142758-b3ede9fff8l0ekekgo93nb6s7gcbgjec.apps.googleusercontent.com">
             <BrowserRouter>
@@ -18,7 +20,7 @@ const App = () => {
                         <Route path="/" exact element={<Navigate to="/posts" replace />} />
                         <Route path="/posts" exact element={<Home />} />
                         <Route path="posts/:id" element={<PostDetails />} />
-                        <Route path="/auth" exact element={<Auth />} />
+                        <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/posts" />} />
                     </Routes>
                 </Container>
             </BrowserRouter>
