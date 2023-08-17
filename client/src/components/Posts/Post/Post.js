@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizonIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import useStyles from './styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deletePost, likePost, updatePost } from '../../../reducers/posts';
 import { postCurrentId } from '../../../reducers/ids';
 import Swal from 'sweetalert2';

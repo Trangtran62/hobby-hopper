@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
@@ -15,8 +15,8 @@ const CommentSection = ({ post }) => {
     const handleClick = async () => {
         const finalComment = `${user.result.name}: ${comment}`;
         const newComments = await dispatch(postComment({ comment: finalComment, id: post._id }));
-        console.log(newComments);
         setComments(newComments.payload.comments);
+        setComment('');
     };
 
     return (
