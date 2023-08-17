@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: "90%",
+        width: "100%",
         padding: '10px 10px 10px 10px',
     },
     appBar1: {
