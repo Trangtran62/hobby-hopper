@@ -19,6 +19,15 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (page, { re
     }
 });
 
+export const fetchPost = createAsyncThunk('posts/fetchPost', async (id, { rejectWithValue }) => {
+    try {
+        const response = await api.fetchPost(id);
+        return response.data;
+    } catch (err) {
+        return rejectWithValue("Post not found");
+    }
+});
+
 export const createPost = createAsyncThunk('posts/createPost', async newPost => {
     const response = await api.createPost(newPost);
     return response.data;
@@ -52,6 +61,15 @@ export const likePost = createAsyncThunk('posts/likeCount', async (params, { rej
 
 })
 
+export const postComment = createAsyncThunk('posts/postComment', async (params, { rejectWithValue }) => {
+    try {
+        const response = await api.postComment(params.comment, params.id);
+        return response.data;
+    } catch (err) {
+        return rejectWithValue("error: cannot post comment");
+    }
+})
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -63,9 +81,18 @@ const postsSlice = createSlice({
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 postsAdapter.setAll(state, action.payload);
             })
+            .addCase(fetchPost.rejected, (state, action) => {
+                return action.payload;
+            })
             .addCase(createPost.fulfilled, postsAdapter.addOne)
+            .addCase(createPost.rejected, (state, action) => {
+                return action.payload;
+            })
             .addCase(updatePost.fulfilled, (state, action) => {
                 postsAdapter.upsertOne(state, action.payload);
+            })
+            .addCase(updatePost.rejected, (state, action) => {
+                return action.payload;
             })
             .addCase(deletePost.fulfilled, (state, action) => {
                 postsAdapter.removeOne(state, action.payload);
@@ -77,6 +104,12 @@ const postsSlice = createSlice({
                 postsAdapter.upsertOne(state, action.payload);   
             })
             .addCase(likePost.rejected, (state, action) => {
+                return action.payload;
+            })
+            .addCase(postComment.fulfilled, (state, action) => {
+                postsAdapter.upsertOne(state, action.payload);
+            })
+            .addCase(postComment.rejected, (state, action) => {
                 return action.payload;
             })
     }

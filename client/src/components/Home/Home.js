@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
+import { Container, Grow, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '../../styles';
 import { fetchPosts } from '../../reducers/posts';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
@@ -24,7 +24,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(fetchPosts(page));
-    }, [currentId, dispatch, postsLength]);
+    }, [currentId, dispatch, postsLength, page]);
 
     return (
         <Grow in>
