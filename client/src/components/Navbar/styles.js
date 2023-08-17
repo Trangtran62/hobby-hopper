@@ -4,12 +4,20 @@ import { deepPurple } from '@material-ui/core/colors';
 export default makeStyles((theme) => ({
     appBar: {
         borderRadius: 15,
-        margin: '30px 0',
+        margin: '10px 10px 10px 10px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: "90%",
+        padding: '10px 10px 10px 10px',
+    },
+    appBar1: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '10px 50px',
+        width: "90%"
     },
     heading: {
         color: deepPurple[300],
@@ -41,4 +49,12 @@ export default makeStyles((theme) => ({
         color: theme.palette.getContrastText(deepPurple[500]),
         backgroundColor: deepPurple[500],
     },
+    button: {
+        marginTop: theme.spacing(1),
+        textTransform: 'none',
+        '&:hover': {
+            backgroundColor: deepPurple[100],
+            boxShadow: 'none',
+        }
+    }
     }));

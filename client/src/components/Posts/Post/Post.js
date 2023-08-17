@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 const Post = ({ post }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.users.currentUser);
+    const user = JSON.parse(localStorage.getItem('profile'));
     const nav = useNavigate();
 
     const Likes = () => {
